@@ -4,18 +4,21 @@ const path=require("path");
 const cookieParser=require('cookie-parser');
 const logger=require("morgan");
 const session = require('express-session');
-const bodyparser = require('body-parser');
+const bodyParser = require('body-parser');
 
 const indexroutes=require("./routes/index");
-
 const app=express();
 
+
+
 // view engine setup
+
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.use(bodyparser.json());
-app.use(bodyparser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -25,6 +28,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexroutes);
 app.use('/about', indexroutes);
+app.use('/foo', indexroutes);
+app.use('/tavan', indexroutes);
 
 
 app.get('*', (req, res) => {
@@ -43,6 +48,7 @@ app.use(function(err, req, res, next) {
     // render the error page
     res.status(err.status || 500);
     res.render('error');
+    //console.warn(err);
 });
 
 const PORT = 3000;
