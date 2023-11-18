@@ -1,0 +1,15 @@
+
+{
+"server":
+{
+    "dbserver":"127.0.0.1",
+    "dbname":"nodedb",
+    "dbuser":"nodedbuser",
+    "password":"Node/db@user123"
+    
+},
+"file":
+{
+"filename":"ap"
+}
+}
