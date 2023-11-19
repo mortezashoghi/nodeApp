@@ -1,9 +1,14 @@
+
+const db=require('./db');
+const crypto = require('crypto');
+
 class user{
     constructor(name,age){
         this.name = name;
         this.age = age;
         this.isActive = true;
     }
+
 
     fulinfo=()=> { 
          return this.name+"--"+this.age
@@ -17,10 +22,16 @@ class user{
         if ((this.age % 2) ==0 ) return true;
         else return true;
     }
+    adduser=(table,data)=>{
+        const dbcon=new db();
+        let result=dbcon.addrecord("users",data);        
+        return JSON.stringify(result);
+
+    }
 
 }
 
-module.exports = { user };
+module.exports.user =  user;
 
 
 // const fulinfo = (name, age)=>{ 

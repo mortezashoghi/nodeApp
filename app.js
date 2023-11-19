@@ -31,6 +31,7 @@ app.use('/about', indexroutes);
 app.use('/foo', indexroutes);
 app.use('/tavan', indexroutes);
 app.use("/userlist",indexroutes);
+app.use("/adduser",indexroutes);
 
 
 app.get('*', (req, res) => {

@@ -39,4 +39,11 @@ router.get('/userlist',(req,res,next)=>{
     // console.warn(t);
     // res.end(JSON.stringify(t));
 });
+router.get('/adduser',(req,res,next)=>{
+    var data={"fulname":"morssh","email":"mors@gmail.com","passwrd":crypto.createHash('sha1').update("password").digest('hex')};
+    console.warn(data);
+    //const addusr=new user.user("mors",37);
+    //result=user.addusr("users",data);
+    console.warn(1);
+});
 module.exports = router;
