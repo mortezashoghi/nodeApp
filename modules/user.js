@@ -24,7 +24,7 @@ class user{
     }
     adduser=(table,data)=>{
         const dbcon=new db();
-        let result=dbcon.addrecord("users",data);        
+        let result=dbcon.addrecord(table,data);        
         return JSON.stringify(result);
 
     }
