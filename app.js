@@ -51,12 +51,10 @@ app.use(function(err, req, res, next) {
     // render the error page
     res.status(err.status || 500);
     res.render('error');
-    //console.warn(err);
+    console.warn(err);
 });
 */
 const PORT = 3000;
-
-
 // make the server listen to requests
 app.listen(PORT, (err) => {
     if(err){

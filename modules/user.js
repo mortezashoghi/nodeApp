@@ -22,10 +22,11 @@ class user{
         if ((this.age % 2) ==0 ) return true;
         else return true;
     }
-    adduser=(table,data)=>{
+    adduser=(tbl,data)=>{
         const dbcon=new db();
-        let result=dbcon.addrecord(table,data);        
-        return JSON.stringify(result);
+        return dbcon.addrecord(tbl,data);
+        //console.log("res is "+result);        
+        //return JSON.stringify(result);
 
     }
 

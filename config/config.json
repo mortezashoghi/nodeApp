@@ -4,9 +4,8 @@
 {
     "dbserver":"127.0.0.1",
     "dbname":"nodedb",
-    "dbuser":"nodedbuser",
+    "dbuser":"nodedbuserb",
     "password":"Node/db@user123"
-    
 },
 "file":
 {

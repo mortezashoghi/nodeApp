@@ -32,18 +32,18 @@ class db {
     }
     //insert with promises
     addrecord=(tblName,data)=>{
-      // return  new Promise((resolve,reject)=>{
-        //let sql="insert into "+tblName+" valuses("+data["fulname"]+","+data["email"]+","+data["password"]+","+data["token"]+")";
-        let sql="insert into "+tblName+"(fulname,email,password,token) valuses(?,?,?,?)";
-        this.connection.query(sql,data,(err,result)=>{
+        this.connect();
+       //return  new Promise((resolve,reject)=>{
+        let sql="INSERT INTO "+tblName+"(fulname,email,password,isactive,token) VALUES(?,?,?,?,?)";
+        this.pool.query(sql,data,(err,result)=>{
            if(err){
-            //reject(error);
+           // reject(error);
             return err;
-           }else{
-            //resolve(JSON.stringify(result));
-            return JSON.stringify(result);
            }
-       /*});*/
+           if(result.affectedRows>0){
+return true;
+        }
+      // });
     });   
     }
 

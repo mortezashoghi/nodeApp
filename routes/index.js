@@ -3,6 +3,7 @@ const router = express.Router();
 const user = require('../modules/user');
 const db = require('../modules/db');
 const crypto=require('crypto');
+const { promises } = require('dns');
 
 
 /* GET home page. */
@@ -36,16 +37,18 @@ router.get('/tavan', (req,res,next) => {
 
 });
 router.get('/userlist',(req,res,next)=>{
-    const ulist=new db();
-    let t = ulist.queryexec();
-     console.warn(t);
-     res.end(JSON.stringify(t));
+    const ulist=new promises((resolve,reject),()=>{
+        
+    });
+   // res.write(JSON.stringify(ulist.queryexec()));
+   console.log(ulist.queryexec());
+    //res.render('index',{users: JSON.stringify(ulist.queryexec())});
+   // res.end();
 });
 router.get('/adduser',(req,res,next)=>{
-    var data={"fulname":"morssh","email":"mors@gmail.com","passwrd":crypto.createHash('sha1').update("password").digest('hex')};
-    console.warn(data);
-    const addusr=new user.user("mors",37);
+    var data=["morsh","mors@gmail.com",crypto.createHash('sha1').update("password").digest('hex'),1,"sdfdsfadsfdfdsf"];
+    const addusr=new user("mors",37);
     result=addusr.adduser("users",data);
-    console.warn(1);
+    console.log(JSON.stringify(result));
 });
 module.exports = router;
