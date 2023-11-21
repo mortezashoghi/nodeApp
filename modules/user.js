@@ -1,8 +1,7 @@
 
-const db=require('./db');
-const crypto = require('crypto');
+import db from "./db.js";
 
-class user{
+export default class user{
     constructor(name,age){
         this.name = name;
         this.age = age;
@@ -32,7 +31,7 @@ class user{
 
 }
 
-module.exports.user =  user;
+//module.exports.user =  user;
 
 
 // const fulinfo = (name, age)=>{ 

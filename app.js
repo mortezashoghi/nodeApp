@@ -1,19 +1,18 @@
-const createError=require('http-errors');
-const express=require("express");
-const path=require("path");
-const cookieParser=require('cookie-parser');
-const logger=require("morgan");
-const session = require('express-session');
-const bodyParser = require('body-parser');
-
-const indexroutes=require("./routes/index");
+import createError from "http-errors";
+import express from "express";
+import path, { dirname } from "path";
+import cookieParser from "cookie-parser";
+import logger from "morgan";
+import session from "express-session";
+import bodyParser from "body-parser";
+import router from "./routes/index.js";
 const app=express();
+import { fileURLToPath } from 'url';
 
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 
 // view engine setup
-
-
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
@@ -26,13 +25,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexroutes);
-app.use('/about', indexroutes);
-app.use('/foo', indexroutes);
-app.use('/tavan', indexroutes);
-app.use("/userlist",indexroutes);
-app.use("/adduser",indexroutes);
-
+app.use(router);
 
 app.get('*', (req, res) => {
     res.send("<center><h2>404 Page Not Found</h2></center>");

@@ -1,7 +1,7 @@
 
-const mysql = require('mysql');
-const config=require('../config/config.json');
-class db {
+import mysql from "mysql";
+import * as config from "../config/config.json" assert { type: "json" };
+export default class db {
     constructor() { 
         this.host=config.server.dbserver;
         this.dbname=config.server.dbname;
@@ -49,4 +49,4 @@ return true;
 
 }
 
-module.exports = db;
+//module.exports = db;
