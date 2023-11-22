@@ -1,47 +1,27 @@
 
-import db from "./db.js";
+import {pool} from "./db.js";
 
-export default class user{
-    constructor(name,age){
-        this.name = name;
-        this.age = age;
-        this.isActive = true;
+
+    export const fulinfo=async(req,res)=> { 
+         res.end("mors--37");
     }
-
-
-    fulinfo=()=> { 
-         return this.name+"--"+this.age
+    export const tavan=async(req,res)=> { 
+        res.end("true");
     }
-    tavan=()=> { 
-
-        //return "this.age+this.age";
-        return this.isActive;
+    export const iseven=async(req,res)=>{
+        const {age}=req.params;
+        if ((age % 2) ==0 ) res.end("iseven");
+        else return res.end(age+"is odd");
     }
-    iseven=()=>{
-        if ((this.age % 2) ==0 ) return true;
-        else return true;
+    export const adduser=async(tbl,data)=>{
+        const result=await pool.query("insert into "+tbl+"(fulname,email,password,isactive,token) values(?,?,?,?,?)",data);
+        if (result.affectedRows>0) return true;
+       //console.log(JSON.stringify(result));
+
+       
     }
-    adduser=(tbl,data)=>{
-        const dbcon=new db();
-        return dbcon.addrecord(tbl,data);
-        //console.log("res is "+result);        
-        //return JSON.stringify(result);
-
+    export const userlist=async(req,res)=>{
+        const result=await pool.query("SELECT * FROM users");
+        //console.log(JSON.stringify(result[0]));
+        res.render('index',{usrlst: JSON.stringify(result[0])});
     }
-
-}
-
-//module.exports.user =  user;
-
-
-// const fulinfo = (name, age)=>{ 
-//     return name + "--" + age;
-
-// }
-
-// const tavan = (age) => { 
-//     const age2 = [1, 2, 3,age];
-//     return age2;
-// }
-
-// module.exports = {fulinfo,tavan}

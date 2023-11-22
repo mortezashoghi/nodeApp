@@ -5,9 +5,11 @@
 </head>
 
 <body>
-  
-   
           <% include ("./pages/header.ejs") %>
+         
+          <% for(var i=0; i < usrlst[0].length; i++){ %>
+             <%= usrlst[0] %> 
+            <% } %>
 
 </body>
 
