@@ -2,15 +2,26 @@
 <html>
 
 <head>
+   <% include ("./pages/head.ejs") %>
+
+
 </head>
 
 <body>
           <% include ("./pages/header.ejs") %>
-         
-          <% for(var i=0; i < usrlst[0].length; i++){ %>
-             <%= usrlst[0] %> 
-            <% } %>
 
+          <ul>
+            <%if(usrlst){%>
+            <% usrlst.forEach(function(user){ %>
+            <li><%=user.id %></li>  
+            <li><%=user.fulname %></li>  
+            <li><%=user.email %></li>  
+            <li><%=user.isactive %></li>  
+
+            
+            <% }); %>
+            <%}%>
+          </ul>
 </body>
 
 </html>

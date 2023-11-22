@@ -19,8 +19,6 @@ router.get('/foo', fulinfo);
 router.get('/tavan', tavan);
 router.get('/even/:age',iseven);
 router.get('/userlist',userlist);
-router.get('/adduser',(req,res,next)=>{
-    var data=["morsh","mors@gmail.com",crypto.createHash('sha1').update("password").digest('hex'),1,"sdfdsfadsfdfdsf"];
-    res.end(JSON.stringify(user.adduser("users",data)));
-});
+router.get('/adduser', adduser);
+
 export default router;
