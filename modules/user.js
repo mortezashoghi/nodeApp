@@ -15,12 +15,16 @@ import crypto from "crypto";
         else return res.end(age+"is odd");
     }
 export const adduser = async (req,res) => {
-        var data=["morsh","mors@gmail.com",crypto.createHash('sha1').update("password").digest('hex'),1,"sdfdsfadsfdfdsf"];
+    // const { params } = req.params;
+    console.log(req.params.email);
+
+    /*var data = ["morsh", "mors@gmail.com", crypto.createHash('sha1').update("password").digest('hex'), 1, "sdfdsfadsfdfdsf"];
       
         const result=await pool.query("insert into users(fulname,email,password,isactive,token) values(?,?,?,?,?)",data);
         if (result[0].affectedRows > 0) res.end("add one row");
        //console.log(JSON.stringify(result));
-
+       */
+    res.render('index');
        
     }
     export const userlist=async(req,res)=>{

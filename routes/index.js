@@ -20,5 +20,9 @@ router.get('/tavan', tavan);
 router.get('/even/:age',iseven);
 router.get('/userlist',userlist);
 router.get('/adduser', adduser);
+router.post("/register", adduser);
+router.get('/login', (req, res) => {
+    res.render('index', {signin:"true"})
+});
 
 export default router;

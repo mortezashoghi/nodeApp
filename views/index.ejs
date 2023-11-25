@@ -2,26 +2,30 @@
 <html>
 
 <head>
-   <% include ("./pages/head.ejs") %>
-
-
+  <%- include('pages/head'); %>
 </head>
 
 <body>
-          <% include ("./pages/header.ejs") %>
+          <%- include ('pages/header'); %>
 
+          <div class="container-fluid">
+            <% if(typeof signin!='undefined'){ %>
+              <%- include ('pages/registerform'); %>
+              <%}%>
+            
+          </div>
           <ul>
-            <%if(usrlst){%>
+            <%if(typeof usrlst!='undefined'){%>
             <% usrlst.forEach(function(user){ %>
             <li><%=user.id %></li>  
             <li><%=user.fulname %></li>  
             <li><%=user.email %></li>  
             <li><%=user.isactive %></li>  
-
-            
+       
             <% }); %>
             <%}%>
           </ul>
+
 </body>
 
 </html>
