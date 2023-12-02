@@ -7,7 +7,9 @@
 
 <body>
           <%- include ('pages/header'); %>
-
+<% if(typeof message!='undefined'){ %>
+  <span> <%= message %> </span>
+  <% } %>
           <div class="container-fluid">
             <% if(typeof signin!='undefined'){ %>
               <%- include ('pages/registerform'); %>

@@ -31,7 +31,7 @@
                       <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                       <div class="form-outline flex-fill mb-0">
                         <input type="password" id="password" name="password" class="form-control" />
-                        <label class="form-label" for="password>Password</label>
+                        <label class="form-label" for="password">Password</label>
                       </div>
                     </div>
   
@@ -42,14 +42,6 @@
                         <label class="form-label" for="repass">Repeat your password</label>
                       </div>
                     </div>
-  
-                    <div class="form-check d-flex justify-content-center mb-5">
-                      <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" />
-                      <label class="form-check-label" for="form2Example3">
-                        I agree all statements in <a href="#!">Terms of service</a>
-                      </label>
-                    </div>
-  
                     <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                       <button type="button" id="register" class="btn btn-primary btn-lg">Register</button>
                     </div>
@@ -57,12 +49,7 @@
                   </form>
   
                 </div>
-                <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
-  
-                  <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
-                    class="img-fluid" alt="Sample image">
-  
-                </div>
+
               </div>
             </div>
           </div>
@@ -74,14 +61,16 @@
   <script>
     document.getElementById("register").addEventListener("click", function(){
       
-      let name =  document.getElementById("name");
-      let email =  document.getElementById("email");
-      let password= document.getElementById("password");
+      // let name =  document.getElementById("name").value;
+      // let email =  document.getElementById("email").value;
+      // let password= document.getElementById("password").value;
+      
       var formData = new FormData(document.getElementById('regform'));
-      formData.append('name',name);
-      formData.append('email',email);
-      formData.append('password',password);
-console.log(formData);
+      const urlEncoded = new URLSearchParams(formData).toString();
+      // formData.append('name',name);
+      // formData.append('email',email);
+      // formData.append('password',password);
+      console.log(formData);
       var http = new XMLHttpRequest();
       var url = '/register';
      
@@ -89,14 +78,14 @@ console.log(formData);
 
       //Send the proper header information along with the request
       http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-
+      //http.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
       http.onreadystatechange = function() {
       if(http.readyState == 4 && http.status == 200) {
         
           }
       }
-      http.send(formData);
+      http.send(urlEncoded);
     });
 
    
-             </script>
+  </script>
