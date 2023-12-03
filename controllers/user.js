@@ -4,6 +4,7 @@
     import axios from "axios";
 
 
+    
     export const fulinfo=async(req,res)=> { 
          res.end("mors--37");
     }
@@ -19,22 +20,11 @@
         const { name,email,password,repass } = req.body;
         //console.log(JSON.stringify(hasuser[0].count));
         const data=[name,email,crypto.createHash('sha1').update(password).digest('hex'),1,crypto.createHash('sha1').update(password).digest('hex')];
-        //let data=["morsh","mors@gmail.com",crypto.createHash('sha1').update("password").digest('hex'),1,"sdfdsfadsfdfdsf"];
-        if(hasuser==0 && islogin==false){
         const result=await pool.query("insert into users(fulname,email,password,isactive,token) values(?,?,?,?,?)",data);
         if (result[0].affectedRows > 0) //res.end("add one row");
-           //console.log(JSON.stringify(result));
            res.render('index');
-        }else{
-            res.render('index',{"message":"user already exist"});
-        }
-        
     }
-    export const islogin=async (req)=>{
-        const secure=new security();
-       
-        return (await secure.islogin(req));
-    }
+   
     export const userlist=async(req,res)=>{
         const result=await pool.query("SELECT * FROM users");
         console.log(result[0][1].email);
@@ -65,12 +55,10 @@
         fetch(url).then((response)=>response.json())
         .then((response)=>{
             res.end(JSON.stringify(response));
-        });
-         
+        });   
     }
     //with axios
     export const getAlla=(req,res)=>{
-
         const url ='https://gorest.co.in/public/v2/users';
         const request =async ()=>{
             const response=await axios(url);

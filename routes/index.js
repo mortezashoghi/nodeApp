@@ -1,6 +1,8 @@
 import express from "express";
-import {fulinfo,tavan,iseven,adduser,userlist,getAll,getAllf,getAlla,islogin} from "../controllers/user.js"
+import {fulinfo,tavan,iseven,adduser,userlist,getAll,getAllf,getAlla} from "../controllers/user.js"
+import {auth} from '../auth.js';
 const router = express.Router();
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -19,9 +21,16 @@ router.get('/userlist',userlist);
 router.get('/adduser', adduser);
 router.post("/register", adduser);
 router.get('/login', (req, res) => {
-    if(!islogin(req)) console.log(islogin(req)); else return false; 
-   
+   res.render('index',auth,{signin: true});
 });
 router.get('/getall',getAll);
+
+router.post("/users", auth, (req, res) => {
+    let body = req.body;
+    adduser
+   /* res.status(200).json({
+        data: "users post request entertained"
+    })*/
+})
 
 export default router;
