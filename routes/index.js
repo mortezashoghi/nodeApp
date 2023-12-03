@@ -17,18 +17,11 @@ router.get('/tavan', tavan);
 router.get('/even/:age',iseven);
 router.get('/userlist',userlist);
 router.get('/adduser', adduser);
-<<<<<<< HEAD
-
-=======
->>>>>>> ee7efc8 (confilict solving)
 router.post("/register", adduser);
 router.get('/login', (req, res) => {
     if(!islogin(req)) console.log(islogin(req)); else return false; 
    
 });
-<<<<<<< HEAD
 router.get('/getall',getAll);
-=======
->>>>>>> ee7efc8 (confilict solving)
 
 export default router;
