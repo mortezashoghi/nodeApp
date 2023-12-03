@@ -1,5 +1,4 @@
     import { pool } from "./db.js";
-    import { security } from "./authentication/security.js";
     import crypto from "crypto";
     import https from "https";
     import axios from "axios";
@@ -18,9 +17,6 @@
     }
     export const adduser = async (req,res) => {
         const { name,email,password,repass } = req.body;
-        const secure=new security(email);
-        let hasuser=await secure.checkuser();
-        let islogin=await secure.islogin(req);
         //console.log(JSON.stringify(hasuser[0].count));
         const data=[name,email,crypto.createHash('sha1').update(password).digest('hex'),1,crypto.createHash('sha1').update(password).digest('hex')];
         //let data=["morsh","mors@gmail.com",crypto.createHash('sha1').update("password").digest('hex'),1,"sdfdsfadsfdfdsf"];

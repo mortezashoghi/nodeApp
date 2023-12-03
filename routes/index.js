@@ -23,7 +23,6 @@ router.get('/adduser', adduser);
 >>>>>>> ee7efc8 (confilict solving)
 router.post("/register", adduser);
 router.get('/login', (req, res) => {
-    req.session.user_id = null;
     if(!islogin(req)) console.log(islogin(req)); else return false; 
    
 });
