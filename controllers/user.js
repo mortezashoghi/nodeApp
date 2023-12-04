@@ -75,15 +75,18 @@
         const data=[email,crypto.createHash('sha1').update(password).digest('hex')];
         //console.log(JSON.stringify(data));
         const result=await pool.query("SELECT COUNT(*) as cnt FROM users WHERE email=? And password=?",data);
-        if (result[0][0].cnt>0) {
+        if (result[0][0].cnt==0) {
+          res.render('index',{signin:false,username:email,msg:"username or password is incorrect"});
+        }else {
             console.log("execute ....");
             let tokenResult=await signIn(true,email);
             if(!tokenResult){
                 res.status(401).end();
+                return;
             }
+            console.log(tokenResult[0]+" "+tokenResult[1]);
             res.cookie('token',tokenResult[0],tokenResult[1]);
             res.render('index',{signin:false,username:email});
-        }else {
             console.log(result[0][0].cnt);
         }
 
