@@ -2,6 +2,7 @@
     import crypto from "crypto";
     import https from "https";
     import axios from "axios";
+    import {signIn,welcome,refreshToken,logout} from '../controllers/auth/auth.js'; 
 
 
     
@@ -66,4 +67,24 @@
             res.end(JSON.stringify(response.data));
         };
         request();
+    }
+
+    //with fetch get user by email and password
+    export const loginuser=async(req,res)=>{
+        const { email,password } = req.body;
+        const data=[email,crypto.createHash('sha1').update(password).digest('hex')];
+        //console.log(JSON.stringify(data));
+        const result=await pool.query("SELECT COUNT(*) as cnt FROM users WHERE email=? And password=?",data);
+        if (result[0][0].cnt>0) {
+            console.log("execute ....");
+            let tokenResult=await signIn(true,email);
+            if(!tokenResult){
+                res.status(401).end();
+            }
+            res.cookie('token',tokenResult[0],tokenResult[1]);
+            res.render('index',{signin:false,username:email});
+        }else {
+            console.log(result[0][0].cnt);
+        }
+
     }

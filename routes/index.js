@@ -1,6 +1,8 @@
 import express from "express";
-import {fulinfo,tavan,iseven,adduser,userlist,getAll,getAllf,getAlla} from "../controllers/user.js"
-import {auth} from '../auth.js';
+import {fulinfo,tavan,iseven,adduser,userlist,getAll,getAllf,getAlla,loginuser} from "../controllers/user.js";
+import { signIn, welcome, refreshToken, logout } from '../controllers/auth/auth.js';
+
+
 const router = express.Router();
 
 
@@ -19,18 +21,14 @@ router.get('/tavan', tavan);
 router.get('/even/:age',iseven);
 router.get('/userlist',userlist);
 router.get('/adduser', adduser);
-router.post("/register", adduser);
-router.get('/login', (req, res) => {
-   res.render('index',auth,{signin: true});
+//router.post("/register", adduser);
+router.get("/login",(req,res)=>{
+res.render('index',{signin:true});
 });
 router.get('/getall',getAll);
-
-router.post("/users", auth, (req, res) => {
-    let body = req.body;
-    adduser
-   /* res.status(200).json({
-        data: "users post request entertained"
-    })*/
-})
+router.post('/signin', loginuser)
+router.get('/welcome', welcome)
+router.post('/refresh', refreshToken)
+router.get('/logout', logout)
 
 export default router;

@@ -11,7 +11,8 @@
   <span> <%= message %> </span>
   <% } %>
           <div class="container-fluid">
-            <% if(typeof signin!='undefined'){ %>
+            <span> <%= signin %> </span>
+            <% if(signin==true){ %>
               <%- include ('pages/registerform'); %>
               <%}%>
             
