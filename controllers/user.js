@@ -2,21 +2,10 @@
     import crypto from "crypto";
     import https from "https";
     import axios from "axios";
-    import {signIn,welcome,refreshToken,logout} from '../controllers/auth/auth.js'; 
+    import {signIn,isLogin,refreshToken,logout} from '../controllers/auth/auth.js'; 
 
 
     
-    export const fulinfo=async(req,res)=> { 
-         res.end("mors--37");
-    }
-    export const tavan=async(req,res)=> { 
-        res.end("true");
-    }
-    export const iseven=async(req,res)=>{
-        const {age}=req.params;
-        if ((age % 2) ==0 ) res.end("iseven");
-        else return res.end(age+"is odd");
-    }
     export const adduser = async (req,res) => {
         const { name,email,password,repass } = req.body;
         //console.log(JSON.stringify(hasuser[0].count));
@@ -28,7 +17,7 @@
    
     export const userlist=async(req,res)=>{
         const result=await pool.query("SELECT * FROM users");
-        console.log(result[0][1].email);
+        console.log(result[0][1]);
         res.render('index',{usrlst: result[0]});
     }
     export const getAll=async(req,res)=>
@@ -71,13 +60,16 @@
 
     //with fetch get user by email and password
     export const loginuser=async(req,res)=>{
-        const { email,password } = req.body;
+        let { email,password } = req.body;
+        password=password.trim();
         const data=[email,crypto.createHash('sha1').update(password).digest('hex')];
+        // console.log(data[0]+"  "+data[1]);
+
         //console.log(JSON.stringify(data));
         const result=await pool.query("SELECT COUNT(*) as cnt FROM users WHERE email=? And password=?",data);
         if (result[0][0].cnt==0) {
           res.render('index',{signin:false,username:email,msg:"username or password is incorrect"});
-        }else {
+        }if(result[0][0].cnt>0) {
             console.log("execute ....");
             let tokenResult=await signIn(true,email);
             if(!tokenResult){
@@ -85,9 +77,10 @@
                 return;
             }
             console.log(tokenResult[0]+" "+tokenResult[1]);
-            res.cookie('token',tokenResult[0],tokenResult[1]);
+            res.cookie('token',tokenResult[0],{maxAge:tokenResult[1]});
             res.render('index',{signin:false,username:email});
+            console.log(tokenResult[0]+"  "+tokenResult[1]);
             console.log(result[0][0].cnt);
-        }
+        }else console.log("user dose not exsit");
 
     }

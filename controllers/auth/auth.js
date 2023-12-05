@@ -1,19 +1,11 @@
 import jwt from 'jsonwebtoken';
-//const { sign, verify } = jwt;
-//const {JsonWebTokenError, jsonwebtoken: jwt} = pkg;
 import dotenv from 'dotenv';
 
 dotenv.config();
 
 const jwrSecret=process.env.SECRET_KEY;
-const jwtExp=process.env.JWT_EXP;
+const jwtExp=process.env.JWT_EXP*10;
 
-
-//for test 
-const users = {
-    user1: 'password1',
-    user2: 'password2'
-  }
 
 export const signIn=(istrust,username)=>{
    // const {username,password}=req.body;
@@ -25,14 +17,16 @@ export const signIn=(istrust,username)=>{
         algorithm:'HS256',
         expiresIn:jwtExp
     });
-    let result=[token,jwtExp*3];
+    let result=[token,jwtExp];
     return result;
     //res.cookie('token',token,{maxAge:jwtExp*3});
     //res.end();
 }
 
-export const welcome=(req,res)=>{
-    const token=req.cookie.token;
+export const isLogin=(req,res,next)=>{
+    console.log("start ");
+    const token=req.cookies.token;
+    console.log("token",JSON.stringify(token));
     if(!token){
         return res.sendStatus(401);
     }
@@ -40,12 +34,13 @@ export const welcome=(req,res)=>{
     try{
     payload=jwt.verify(token,jwrSecret);
     }catch(e){
-        if(e instanceof jwt.JsonwebTokenError){
+        console.log("error",e);
+        if(e instanceof jwt.JsonWebTokenError){
             return res.status(401).end();
         }
         return res.status(400).end();
     }
-    res.render('index',{signin:true});
+    next();
 }
 
 export const refreshToken=(req,res)=>{
@@ -65,7 +60,7 @@ export const refreshToken=(req,res)=>{
 
     }
 
-    const nowUnixSec=Math.round(Number(new Date())/1000);
+    const nowUnixSec=Math.round(Number(new Date())/1000 + (60 * 60 * 60));
     if(payload.exp - nowUnixSec>30){
         return res.status(400);
     }

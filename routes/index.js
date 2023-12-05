@@ -1,6 +1,6 @@
 import express from "express";
-import {fulinfo,tavan,iseven,adduser,userlist,getAll,getAllf,getAlla,loginuser} from "../controllers/user.js";
-import { signIn, welcome, refreshToken, logout } from '../controllers/auth/auth.js';
+import {adduser,userlist,getAll,getAllf,getAlla,loginuser} from "../controllers/user.js";
+import { signIn, isLogin, refreshToken, logout } from '../controllers/auth/auth.js';
 
 
 const router = express.Router();
@@ -16,18 +16,16 @@ router.get('/about', function(req, res, next) {
       res.end("hi");
 });
 
-router.get('/foo', fulinfo);
-router.get('/tavan', tavan);
-router.get('/even/:age',iseven);
-router.get('/userlist',userlist);
+
+router.get('/userlist',isLogin,userlist);
 router.get('/adduser', adduser);
 //router.post("/register", adduser);
 router.get("/login",(req,res)=>{
 res.render('index',{signin:true});
 });
-router.get('/getall',getAll);
+router.get('/getall',isLogin,getAll);
 router.post('/signin', loginuser)
-router.get('/welcome', welcome)
+router.get('/islogin', isLogin)
 router.post('/refresh', refreshToken)
 router.get('/logout', logout)
 
