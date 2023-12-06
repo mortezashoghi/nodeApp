@@ -3,6 +3,7 @@
     import https from "https";
     import axios from "axios";
     import {signIn,isLogin,refreshToken,logout} from '../controllers/auth/auth.js'; 
+    import { emmiter } from "../core/eventcenter.js";
 
 
     
@@ -76,11 +77,17 @@
                 res.status(401).end();
                 return;
             }
-            console.log(tokenResult[0]+" "+tokenResult[1]);
+           //console.log(tokenResult[0]+" "+tokenResult[1]);
             res.cookie('token',tokenResult[0],{maxAge:tokenResult[1]});
             res.render('index',{signin:false,username:email});
-            console.log(tokenResult[0]+"  "+tokenResult[1]);
-            console.log(result[0][0].cnt);
+            //console.log(tokenResult[0]+"  "+tokenResult[1]);
+            //console.log(result[0][0].cnt);
         }else console.log("user dose not exsit");
 
     }
+    const emtA=new emmiter();
+    emtA.on('test',(req,res)=>{
+        console.log('test event is runnig...');
+        return true;
+    });
+    

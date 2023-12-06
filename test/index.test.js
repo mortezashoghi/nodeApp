@@ -9,3 +9,10 @@ test('detect even or odd number',()=>{
     expect(userinfo.iseven()).toBeTruthy();
 })
 });
+
+// describe("evnt",()=>{
+
+//     test("detect invalid email",()=>{
+//         expect();
+//     });
+// });
