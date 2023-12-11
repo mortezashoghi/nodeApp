@@ -8,8 +8,7 @@ const jwtExp=process.env.JWT_EXP*10;
 
 
 export const signIn=(istrust,username)=>{
-   // const {username,password}=req.body;
-    //if(!username || !password || users[username] !== password ){
+   
     if(!istrust){
     return false;
     }
@@ -19,8 +18,6 @@ export const signIn=(istrust,username)=>{
     });
     let result=[token,jwtExp];
     return result;
-    //res.cookie('token',token,{maxAge:jwtExp*3});
-    //res.end();
 }
 
 export const isLogin=(req,res,next)=>{
