@@ -1,6 +1,7 @@
 import express from "express";
 import {adduser,userlist,getAll,getAllf,getAlla,loginuser} from "../controllers/user.js";
 import { signIn, isLogin, refreshToken, logout } from '../controllers/auth/auth.js';
+import {createchannel,getMsg,sendMsg} from '../controllers/message.js';
 import {emmit} from '../controllers/evnt.js';
 
 const router = express.Router();
@@ -29,5 +30,6 @@ router.get('/islogin', isLogin)
 router.post('/refresh', refreshToken)
 router.get('/logout', logout)
 router.post('/search',emmit);
+router.get('/rabbit',createchannel);
 
 export default router;
