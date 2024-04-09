@@ -53,7 +53,6 @@
         const url ='https://gorest.co.in/public/v2/users';
         const request =async ()=>{
             const response=await axios(url);
-            //console.log(response.data);
             res.end(JSON.stringify(response.data));
         };
         request();

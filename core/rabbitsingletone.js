@@ -7,11 +7,11 @@ export class rbtsingle{
     }
     static getInstance() {
         console.log("getinstance out");
-        if (!Singleton.instance) {
+        if (!rbtsingle.instance) {
             console.log("getinstance in");
-            Singleton.instance = new rabbit();
+            rbtsingle.instance = new rabbit();
         }
-        return Singleton.instance;
+        return rbtsingle.instance;
     }
   
 

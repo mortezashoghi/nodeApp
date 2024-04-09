@@ -1,18 +1,28 @@
 import {rbtsingle} from '../core/rabbitsingletone.js';
-
-const connection=rbtsingle.getInstance();
 const channel=null;
+const cntTorabbit=()=>{
+    const rabbitCnt=rbtsingle.getInstance();
+    //console.log(rabbitCnt);
+    return rabbitCnt;
+
+}
 
 export const createchannel=async()=>{
-    channel = await connection.createChannel();
-    await channel.assertQueue("mors");
+    let cnt=cntTorabbit();
+    channel = await cnt.createChannel(function(error1, channel) {
+            if (error1) {
+              throw error1;
+            }
+          });
+    await channel.assertQueue("general");
+    console.log("channel is created");
 }
-export const sendMsg=async(queueName="mors",data)=>{
+export const sendMsg=async(queueName="general",data)=>{
     await channel.sendToQueue(queueName, Buffer.from(JSON.stringify(data)));
     // close the channel and connection
     await channel.close();
 }
-export const getMsg=async(queueName="mors")=>{
+export const getMsg=async(queueName="general")=>{
     if(channel==null){
         channel= await connection.createChannel();
     }    

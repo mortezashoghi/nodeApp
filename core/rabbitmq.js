@@ -1,22 +1,33 @@
-import {callback_api as amq} from 'amqplib';
+// import {callback_api as amq} from 'amqplib';
+import * as amq from 'amqplib'; 
+//const {callback_api: amq} = pkg;
 
 export class rabbit{
     constructor(){
         this.rabbitPort=process.env.RABBIT_PORT;
         this.rabbiturl=process.env.AMQP_URL;
-        this.connect();
+        this.conec=this.connect();
     }
     async connect(){
-       return await amq.connect(this.rabbiturl, function(err, connection) {
-        if (err) {
-          throw error0;
-        }
-        // connection.createChannel(function(error1, channel) {
-        //   if (error1) {
-        //     throw error1;
-        //   }
-        // });
+      console.log("connecting....");
+       const rbtconnection= await amq.connect(this.rabbiturl, function(err, connection) {
+        // if (err) {
+        //   console.log("can Not connect...");
+        // }
+        console.log("SDFKJADLSFJL"+connection);
+        //  connection.createChannel(function(error1, channel) {
+        //    if (error1) {
+        //      throw error1;
+        //    }
+        //   const queue = 'my-queue';
+        //   channel.assertQueue(queue, {
+        //   durable: false
+        //     });
+        //     console.log(`Created a channel and asserted a queue called ${queue}`);
+
+        //  });
       });
+      console.log(rbtconnection);
     }
 
 
